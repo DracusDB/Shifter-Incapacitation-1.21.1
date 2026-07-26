@@ -1,5 +1,6 @@
 package net.dracus.shifterincapacitation;
 
+import net.dracus.shifterincapacitation.config.ModGameRules;
 import net.dracus.shifterincapacitation.effect.ModEffects;
 import net.dracus.shifterincapacitation.util.ShifterIncapacitationHandler;
 import net.fabricmc.api.ModInitializer;
@@ -20,6 +21,7 @@ public class ShifterIncapacitation implements ModInitializer {
 		ShifterIncapacitationHandler.initCarryDropChecker();
 
 		ModEffects.registerEffects();
+		ModGameRules.register();
 	}
 
 	public static Identifier id(String path) {
