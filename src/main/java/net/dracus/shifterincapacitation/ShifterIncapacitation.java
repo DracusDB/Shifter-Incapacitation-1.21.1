@@ -1,5 +1,7 @@
 package net.dracus.shifterincapacitation;
 
+import net.dracus.shifterincapacitation.effect.ModEffects;
+import net.dracus.shifterincapacitation.util.ShifterIncapacitationHandler;
 import net.fabricmc.api.ModInitializer;
 
 import net.minecraft.util.Identifier;
@@ -13,7 +15,11 @@ public class ShifterIncapacitation implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		ShifterIncapacitationHandler.initCooldownScheduler();
+		ShifterIncapacitationHandler.register();
+		ShifterIncapacitationHandler.initCarryDropChecker();
 
+		ModEffects.registerEffects();
 	}
 
 	public static Identifier id(String path) {
