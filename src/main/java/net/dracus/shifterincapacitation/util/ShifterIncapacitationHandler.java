@@ -1,5 +1,6 @@
 package net.dracus.shifterincapacitation.util;
 
+import net.dracus.shifterincapacitation.config.ModGameRules;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.event.player.*;
 import net.minecraft.entity.Entity;
@@ -8,6 +9,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.network.packet.s2c.play.EntityPassengersSetS2CPacket;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
@@ -201,20 +203,29 @@ public class ShifterIncapacitationHandler {
         server.getCommandManager().executeWithPrefix(server.getCommandSource().withSilent(), "effect give " + name + " minecraft:instant_health 1 1 true");
         server.getCommandManager().executeWithPrefix(server.getCommandSource().withSilent(), "effect give " + name + " minecraft:slowness 45 4 true");
         server.getCommandManager().executeWithPrefix(server.getCommandSource().withSilent(), "effect give " + name + " minecraft:regeneration 45 0 true");
-        server.getCommandManager().executeWithPrefix(server.getCommandSource().withSilent(), "effect give " + name + " minecraft:weakness 45 3 true");
-        server.getCommandManager().executeWithPrefix(server.getCommandSource().withSilent(), "effect give " + name + " minecraft:mining_fatigue 45 4 true");
         server.getCommandManager().executeWithPrefix(server.getCommandSource().withSilent(), "effect give " + name + " minecraft:slow_falling 10 1 true");
-        server.getCommandManager().executeWithPrefix(server.getCommandSource().withSilent(), "effect give " + name + " minecraft:glowing 45 0 true");
         server.getCommandManager().executeWithPrefix(server.getCommandSource().withSilent(), "effect give " + name + " daotbr:shifter_incapacitated 45 0 true");
 
         player.sendMessage(Text.literal("You've suffered from what would have been a killing blow for a normal human. You need to give your body time to regenerate before you can do so again.")
                 .formatted(Formatting.RED), false);
 
-        server.getPlayerManager().broadcast(
-                Text.literal("Titan Shifter " + name + " suffered a killing blow at " + (int) Math.ceil(player.getX()) + " " + (int) Math.ceil(player.getY()) + " " + (int) Math.ceil(player.getZ()) + "!")
-                        .formatted(Formatting.RED, Formatting.BOLD), false);
+        ServerWorld world = (ServerWorld) player.getWorld();
+        boolean announceShifterDefeat = world.getGameRules().getBoolean(ModGameRules.ANNOUNCE_SHIFTER_DEFEAT);
 
-        player.getWorld().playSound(null, player.getBlockPos(), SoundEvents.ENTITY_WITHER_DEATH, SoundCategory.PLAYERS, 1.0f, 1.0f);
+        if (announceShifterDefeat) {
+
+            server.getCommandManager().executeWithPrefix(server.getCommandSource().withSilent(), "effect give " + name + " minecraft:glowing 45 0 true");
+
+            server.getPlayerManager().broadcast(
+                    Text.literal("Titan Shifter " + name + " suffered a killing blow at " + (int) Math.ceil(player.getX()) + " " + (int) Math.ceil(player.getY()) + " " + (int) Math.ceil(player.getZ()) + "!")
+                            .formatted(Formatting.RED, Formatting.BOLD), false);
+
+            player.getWorld().playSound(null, player.getBlockPos(), SoundEvents.ENTITY_WITHER_DEATH, SoundCategory.PLAYERS, 1.0f, 1.0f);
+
+        } else {
+
+            player.playSoundToPlayer(SoundEvents.ENTITY_WITHER_DEATH, SoundCategory.PLAYERS, 1.0f, 1.0f);
+        }
     }
 
     // ---- cooldown removal scheduling ----
@@ -332,3 +343,4 @@ public class ShifterIncapacitationHandler {
     private static final Map<UUID, UUID> activeCarries = new HashMap<>(); // carried player UUID -> carrier UUID
 
 }
+
