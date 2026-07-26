@@ -3,7 +3,8 @@
 	"package": "net.dracus.shifterincapacitation.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"ExampleMixin"
+		"ExampleMixin",
+		"IncapacitationInputMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
