@@ -17,6 +17,7 @@ public class DaotCompatMixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
+        System.out.println("[shifterincap] shouldApplyMixin check: target=" + targetClassName + " mixin=" + mixinClassName);
         return FabricLoader.getInstance().isModLoaded("dannys-aot");
     }
 
@@ -31,4 +32,6 @@ public class DaotCompatMixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public void postApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {}
+
+
 }
