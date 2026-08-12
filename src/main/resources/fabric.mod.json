@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"id": "shifterincapacitation",
-	"version": "1.0.0",
+	"version": "1.0.2",
 	"name": "Dracus' Shifter Incapacitation",
 	"description": "A shifter incapacitation addon to Danny's Attack on Titan mod",
 	"authors": [
@@ -25,13 +25,16 @@
 		]
 	},
 	"mixins": [
-		"shifterincapacitation.mixins.json"
+		"shifterincapacitation.mixins.json",
+		"shifterincapacitation.mixins.daotcompat.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.19.3",
 		"minecraft": "~1.21.1",
 		"java": ">=21",
-		"fabric-api": "*",
 		"dannys-aot": "*"
+	},
+	"suggests": {
+		"fabric-api": "*",
+		"fabricloader": ">=0.19.3"
 	}
 }

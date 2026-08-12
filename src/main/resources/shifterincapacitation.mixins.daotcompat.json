@@ -1,0 +1,9 @@
+{
+  "required": true,
+  "package": "net.dracus.shifterincapacitation.mixin",
+  "plugin": "net.dracus.shifterincapacitation.mixin.DaotCompatMixinPlugin",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "BiteCancelMixin"
+  ]
+}

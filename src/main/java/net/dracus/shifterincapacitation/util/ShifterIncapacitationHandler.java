@@ -174,8 +174,8 @@ public class ShifterIncapacitationHandler {
 
     private static boolean hasAnyShifterTag(ServerPlayerEntity player) {
         Set<String> tags = player.getCommandTags();
-        return tags.contains("attack") || tags.contains("armored") || tags.contains("beast")
-                || tags.contains("colossal") || tags.contains("female") || tags.contains("jaw")
+        return tags.contains("attack") || tags.contains("armored") || tags.contains("beast") || tags.contains("cart_shifter")
+                || tags.contains("cart") || tags.contains("colossal") || tags.contains("female") || tags.contains("jaw")
                 || tags.contains("warhammer");
     }
 
@@ -204,7 +204,7 @@ public class ShifterIncapacitationHandler {
         server.getCommandManager().executeWithPrefix(server.getCommandSource().withSilent(), "effect give " + name + " minecraft:slowness 45 4 true");
         server.getCommandManager().executeWithPrefix(server.getCommandSource().withSilent(), "effect give " + name + " minecraft:regeneration 45 0 true");
         server.getCommandManager().executeWithPrefix(server.getCommandSource().withSilent(), "effect give " + name + " minecraft:slow_falling 10 1 true");
-        server.getCommandManager().executeWithPrefix(server.getCommandSource().withSilent(), "effect give " + name + " daotbr:shifter_incapacitated 45 0 true");
+        server.getCommandManager().executeWithPrefix(server.getCommandSource().withSilent(), "effect give " + name + " shifterincapacitation:shifter_incapacitated 45 0 true");
 
         player.sendMessage(Text.literal("You've suffered from what would have been a killing blow for a normal human. You need to give your body time to regenerate before you can do so again.")
                 .formatted(Formatting.RED), false);

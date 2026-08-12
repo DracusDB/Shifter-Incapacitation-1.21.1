@@ -6,6 +6,9 @@
 		"ExampleMixin",
 		"IncapacitationInputMixin"
 	],
+	"client": [
+	"KeyBindingMixin"
+	],
 	"injectors": {
 		"defaultRequire": 1
 	},
