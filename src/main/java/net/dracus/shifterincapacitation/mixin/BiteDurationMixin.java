@@ -13,12 +13,10 @@ public class BiteDurationMixin {
 
     @ModifyConstant(
             method = "handleTitanShift",
-            constant = @Constant(intValue = 21),
-            require = 1
+            constant = @Constant(intValue = 21)
     )
     private static int shifterincap$speedUpBiteDuration(int ticks, ServerPlayerEntity player, ServerWorld level) {
         boolean incap = player.hasStatusEffect(ModEffects.SHIFTER_INCAPACITATED);
-        System.out.println("[shifterincap] bite duration check: incapacitated=" + incap + " original=" + ticks);
         if (incap) {
             return 1;
         }
